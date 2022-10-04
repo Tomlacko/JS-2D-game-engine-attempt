@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Documentation - 2DGameEngine</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<style>
+			* {
+				margin:0px;
+				padding:0px;
+			}
+
+			html {
+				font-family:Roboto, Sans-serif;
+			}
+
+			body {
+				background-color:#333;
+			}
+
+			#header {
+				display:block;
+				text-align:center;
+				position:fixed;
+				background-color:#555;
+				width:100%;
+				height:70px;
+				box-shadow:0px 1px 15px rgba(50, 50, 50, 1);
+			}
+
+			#title {
+				color:#FFF;
+				margin-top:18px;
+				text-shadow:0px 0px 8px #000;
+			}
+
+			#goUp {
+				position:absolute;
+				bottom:10px;
+				right:10px;
+				color:#FFF;
+				background-color:#777;
+				border:4px solid #FFF;
+				padding:5px;
+			}
+
+			#goUp:hover {
+				background-color:#AAA;
+			}
+
+			#menu {
+				background-color:#BBB;
+				width:250px;
+				margin-top:80px;
+				float:left;
+				border-top-right-radius:10px;
+				border-bottom-right-radius:10px;
+				margin-bottom:10px;
+				padding:5px;
+			}
+
+			.category {
+				font-weight:bold;
+				display:block;
+				margin-top:10px;
+				color:#000;
+			}
+
+			.subcategory {
+				display:block;
+				margin-left:10px;
+				color:#333;
+			}
+
+			.section {
+				background-color:#EEE;
+				float:right;
+				border-radius:3px;
+				margin-top:10px;
+				margin-right:10px;
+				margin-left:10px;
+				display:block;
+				width:calc(100% - 290px);
+				min-height:20px;
+				padding:5px;
+			}
+
+			.section:first-child {
+				margin-top:80px;
+			}
+
+			.section:last-child {
+				margin-bottom:10px;
+			}
+
+			.subsection {
+				display:block;
+				margin-left:15px;
+				padding-left:8px;
+				margin-top:10px;
+				margin-bottom:25px;
+			}
+
+			.subsection h3 {
+				margin-bottom:5px;
+				text-decoration:underline;
+			}
+
+			li > ul, li > ol {
+				padding-left:20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<h1 id="title">Documentation - 2DGameEngine</h1>
+			<a href="#page" id="goUp">GO BACK UP</a>
+		</div>
+		<div id="menu">
+			<p class="category">Info</p>
+			<a href="#about" class="subcategory">About</a>
+			
+			<p class="category">GAME Instance</p>
+			<a href="#game_new" class="subcategory">Create a new GAME instance</a>
+			<a href="#game_structure" class="subcategory">Internal GAME instance structure</a>
+			<a href="#game_flow" class="subcategory">Tick flow</a>
+			<a href="#rendering_layers" class="subcategory">Rendering layers</a>
+			
+			<p class="category">Object Structures</p>
+			<a href="#shape_info" class="subcategory">Shape info</a>
+			<a href="#shape_new" class="subcategory">new ShapeRect(.....)</a>
+			<a href="#shape_new" class="subcategory">new ShapeCircle(....)</a>
+			<a href="#shape_structure" class="subcategory">Internal Shape structure</a>
+			<a href="#geometry_info" class="subcategory">Geometry info</a>
+			<a href="#geometry_new" class="subcategory">new Geometry(...)</a>
+			<a href="#geometry_structure" class="subcategory">Internal Geometry structure</a>
+			<a href="#entity_info" class="subcategory">Entity info</a>
+			<a href="#entity_new" class="subcategory">new Entity(.........)</a>
+			<a href="#entity_structure" class="subcategory">Internal Entity structure</a>
+			
+			<p class="category">Engine Events</p>
+			<a href="#event_usage" class="subcategory">beforeTick</a>
+			<a href="#event_usage" class="subcategory">tick</a>
+			<a href="#event_usage" class="subcategory">render</a>
+			<a href="#event_usage" class="subcategory">collision</a>
+			<a href="#event_usage" class="subcategory">mousedown</a>
+			<a href="#event_usage" class="subcategory">mouseup</a>
+			<a href="#event_usage" class="subcategory">mousemove</a>
+			<a href="#event_usage" class="subcategory">keydown</a>
+			<a href="#event_usage" class="subcategory">keyup</a>
+			<a href="#event_usage" class="subcategory">windowResize</a>
+			
+			<p class="category">User Engine functions</p>
+			<a href="#attachEvent" class="subcategory">attachEvent(..)</a>
+			<a href="#updateCanvasSize" class="subcategory">updateCanvasSize(...)</a>
+			<a href="#moveCanvas" class="subcategory">moveCanvas(....)</a>
+			<a href="#moveCanvasTo" class="subcategory">moveCanvasTo(...)</a>
+			<a href="#centerCanvasTo" class="subcategory">centerCanvasTo(....)</a>
+			<a href="#zoomCanvas" class="subcategory">zoomCanvas(..)</a>
+			<a href="#resetCanvas" class="subcategory">resetCanvas(.)</a>
+			<a href="#setBackground" class="subcategory">setBackground(....)</a>
+			<a href="#reposBackground" class="subcategory">reposBackground(..)</a>
+			<a href="#clearCanvas" class="subcategory">clearCanvas()</a>
+			<a href="#drawRect" class="subcategory">drawRect(.......)</a>
+			<a href="#drawCircle" class="subcategory">drawCircle(......)</a>
+			<a href="#drawLine" class="subcategory">drawLine(......)</a>
+			<a href="#drawText" class="subcategory">drawText(........)</a>
+			<a href="#measureText" class="subcategory">measureText(...)</a>
+			<a href="#createTexture" class="subcategory">createTexture(.)</a>
+			<a href="#createFontStyle" class="subcategory">createFontStyle(....)</a>
+			<a href="#createObj" class="subcategory">createObj(.....)</a>
+			<a href="#deleteObj" class="subcategory">deleteObj(.)</a>
+			<a href="#getObjectAtPos" class="subcategory">getObjectAtPos(.....)</a>
+			<a href="#collisionCheck" class="subcategory">collisionCheck(...)</a>
+			<a href="#start" class="subcategory">start()</a>
+			<a href="#stop" class="subcategory">stop()</a>
+			<a href="#tick" class="subcategory">tick()</a>
+			<a href="#render" class="subcategory">render()</a>
+			
+			<p class="category">Custom Game Utilities (G)</p>
+			<a href="#instances" class="subcategory">instances[]</a>
+			<a href="#key" class="subcategory">key{}</a>
+			<a href="#keyActive" class="subcategory">keyActive(.)</a>
+			<a href="#mouseActive" class="subcategory">mouseActive{}</a>
+			<a href="#isMobile" class="subcategory">isMobile</a>
+			<a href="#saveToFile" class="subcategory">saveToFile(...)</a>
+			<a href="#openFileDlg" class="subcategory">openFileDlg(.)</a>
+			<a href="#readFile" class="subcategory">readFile(...)</a>
+			<a href="#getDistance" class="subcategory">getDistance(....)</a>
+			<a href="#getDistanceNoSqrt" class="subcategory">getDistanceNoSqrt(....)</a>
+			<a href="#getAngle" class="subcategory">getAngle(....)</a>
+			<a href="#getPointFromAngle" class="subcategory">getPointFromAngle(....)</a>
+			<a href="#intersectLineLine" class="subcategory">intersectLineLine(........)</a>
+			<a href="#intersectLineCircle" class="subcategory">intersectLineCircle(.......)</a>
+			<a href="#intersectLineRect" class="subcategory">intersectLineRect(........)</a>
+			<a href="#intersectCircleCircle" class="subcategory">intersectCircleCircle(......)</a>
+			<a href="#intersectRectRect" class="subcategory">intersectRectRect(........)</a>
+			<a href="#intersectRectCircle" class="subcategory">intersectRectCircle(.......)</a>
+			<a href="#pointInCircle" class="subcategory">pointInCircle(.....)</a>
+			<a href="#pointInRect" class="subcategory">pointInRect(......)</a>
+			<a href="#pointInArea" class="subcategory">pointInArea(......)</a>
+			
+			<p class="category">Custom JavaScript Utilities</p>
+			<a href="#timestamp" class="subcategory">new Timestamp()</a>
+			<a href="#timestamp_since" class="subcategory">TIMESTAMP.since()</a>
+			<a href="#formatString" class="subcategory">formatString(..)</a>
+			<a href="#formatNumber" class="subcategory">formatNumber(..)</a>
+			<a href="#array_numSort" class="subcategory">ARRAY.numSort()</a>
+			<a href="#number_fixedTo" class="subcategory">NUMBER.fixedTo(.)</a>
+			<a href="#toRad" class="subcategory">Math.toRad(.)</a>
+			<a href="#toDeg" class="subcategory">Math.toDeg(.)</a>
+			<a href="#randomRange" class="subcategory">Math.randomRange(..)</a>
+			<a href="#randomRangeFloat" class="subcategory">Math.randomRangeFloat(..)</a>
+			<a href="#randomBool" class="subcategory">Math.randomBool()</a>
+			<a href="#average" class="subcategory">Math.average(_)</a>
+			<a href="#weightedAverage" class="subcategory">Math.weightedAverage(_)</a>
+			<a href="#rgb" class="subcategory">rgb(...)</a>
+			<a href="#rgba" class="subcategory">rgba(....)</a>
+			
+			<p class="category">Vectors</p>
+			<a href="#vector" class="subcategory">new Vector(....)</a>
+			<a href="#vector_copy" class="subcategory">VECTOR.copy()</a>
+			<a href="#vector_length" class="subcategory">VECTOR.length()</a>
+			<a href="#vector_normalize" class="subcategory">VECTOR.normalize()</a>
+			<a href="#vector_reverse" class="subcategory">VECTOR.reverse()</a>
+			<a href="#vector_perpendicular" class="subcategory">VECTOR.perpendicular(.)</a>
+			<a href="#vector_add" class="subcategory">VECTOR.add(_)</a>
+			<a href="#vector_subtract" class="subcategory">VECTOR.subtract(_)</a>
+			<a href="#vector_multiply" class="subcategory">VECTOR.multiply(..)</a>
+			<a href="#vector_average" class="subcategory">VECTOR.average(_)</a>
+			<a href="#vector_dot" class="subcategory">VECTOR.dot(.)</a>
+			<a href="#vector_angle" class="subcategory">VECTOR.angle(.)</a>
+			<a href="#vector_rotate" class="subcategory">VECTOR.rotate(.)</a>
+			<a href="#vector_scalarProject" class="subcategory">VECTOR.scalarProject(.)</a>
+			<a href="#vector_vectorProject" class="subcategory">VECTOR.vectorProject(.)</a>
+			<a href="#vector_vectorReject" class="subcategory">VECTOR.vectorReject(.)</a>
+		</div>
+		<div id="page">
+			<div class="section">
+				<h2>Information</h2>
+				<div class="subsection" id="about">
+					<h3>About</h3>
+					<p>This is my custom 2D Game Engine, made completely from scratch.</p>
+					<p>It only supports circular and rectangular objects and doesn't support rotations.</p>
+					<p>All collisions are based on real-life behavior.</p>
+					<p>This engine has one major problem that I was not able to resolve, which is multiple entities stacked on top of each other.</p>
+					<p>In that case, objects will push each other through the ground/walls or glitch into one another.</p>
+					<p>This engine partialy depends on jQuery to function.</p>
+				</div>
+			</div>
+			<div class="section">
+				<h2>GAME Instance</h2>
+				<div class="subsection" id="game_new">
+					<h3>Create a new GAME instance</h3>
+					<ul>
+						<li>To create a new game instance, you need to use the GAME constructor.</li>
+						<li>Inside your custom script file and inside your jQuery $(document).ready function, create a new variable and asign it a new GAME instance using the new keyword.</li>
+						<li>Your syntax should look similar to this:  <strong>var MyGame = new GAME(.......);</strong></li>
+						<li><strong>Whenever you see MyGame in this documentation, it refers to this variable, which contains your GAME instance.</strong></li>
+						<li>Inside the parentheses, you need to specify a few parameters. These are: (canvasID, canvasWidth, canvasHeight, fpsLimit, imageSources, audioSources, callback)</li>
+						<li><strong>STRING canvasID</strong> - The HTML ID of the canvas you want to display the game to. Canvas needs to be already created in the HTML.</li>
+						<li><strong>NUMBER width</strong> - The width of the canvas. Use -1 to automatically adjust canvas width to fit the whole window.</li>
+						<li><strong>NUMBER height</strong> - The height of the canvas. Use -1 to automatically adjust canvas height to fit the whole window.</li>
+						<li><strong>NUMBER fps</strong> - The FPS limit of the game. Use 60 for best results. Too low FPS can cause physics problems.</li>
+						<li><strong>OBJECT imageSources</strong> - All the images (textures, etc.) the game will need. Create this object beforehand and using this format: {internalName:"url/to/image.png", img2:"test.jpg"}</li>
+						<li><strong>OBJECT audioSources</strong> - All the audio files (music, sounds, etc.) the game will need. Create this object beforehand and using this format: {internalName:"url/to/sound.mp3", audio2:"test.mp3"}</li>
+						<li><strong>FUNCTION callback</strong> - The function to run when the game instance is created and all images/sounds are loaded. Treat this function as the MAIN function (as it is known in other programming languages.</li>
+						<li>Now that you have created your game instance, you can add objects in the game, attach events and run custom scripts.</li>
+						<li>Remember to write all your initial scripts in the callback function (or MAIN, whatever you wanna call it). You should create any of your own functions outside the MAIN function though.</li>
+						<li><strong>IMPORTANT!!!</strong> - The game starts off in a paused state. You need to write MyGame.start(); at the bottom of your MAIN function to make it start running!</li>
+					</ul>
+				</div>
+				<div class="subsection" id="game_structure">
+					<h3>Internal GAME instance structure</h3>
+					<p>Every GAME instance has many properties, some of which are defined by the user, while many others are not.</p>
+					<p>Here is a complete list of these properties:</p>
+					<ul>
+						<li><strong>HTML_ELEMENT canvas</strong> - This holds the canvas element which the game draws on.</li>
+						<li><strong>CANVAS_2D_CONTEXT ctx</strong> - The canvas context. Used to draw everything on screen. Can be used for standard canvas functions, like beginPath() etc.</li>
+						<li><strong>NUMBER width</strong> - The current real canvas width in pixels.</li>
+						<li><strong>NUMBER height</strong> - The current real canvas height in pixels.</li>
+						<li><strong>NUMBER midX</strong> - The middle of the canvas width in pixels. Shorthand for width/2.</li>
+						<li><strong>NUMBER midY</strong> - The middle of the canvas height in pixels. Shorthand for height/2.</li>
+						<li><strong>NUMBER canvasX</strong> - The current X origin of the canvas. Higher number coresponds to viewport moving to the left. DO NOT MODIFY, for moving the canvas, use MyGame.moveCanvas(), MyGame.moveCanvasTo() or MyGame.centerCanvasTo().</li>
+						<li><strong>NUMBER canvasY</strong> - The current Y origin of the canvas. Higher number coresponds to viewport moving upwards. DO NOT MODIFY, for moving the canvas, use MyGame.moveCanvas(), MyGame.moveCanvasTo() or MyGame.centerCanvasTo().</li>
+						<li><strong>NUMBER setWidth</strong> - The desired width of the canvas. If set to -1, the canvas will automatically adjust itself to always fill the entire width of the screen. Use MyGame.updateCanvasSize() to change this value.</li>
+						<li><strong>NUMBER setHeight</strong> - The desired height of the canvas. If set to -1, the canvas will automatically adjust itself to always fill the entire height of the screen. Use MyGame.updateCanvasSize() to change this value.</li>
+						<li><strong>NUMBER zoom</strong> - The current zoom level of the canvas. Higher number means closer zoom. DO NOT MODIFY, for zooming the canvas, use MyGame.zoomCanvas() or MyGame.centerCanvasTo().</li>
+						<li><strong>BOOL staticBackground</strong> - True = background follows the viewport position, false = background stays static. You should use MyGame.setBackground() to change background properties.</li>
+						<li><strong>NUMBER backgroundWidth</strong> - The width of the background image. DO NOT MANUALLY CHANGE THIS!</li>
+						<li><strong>NUMBER backgroundHeight</strong> - The height of the background image. DO NOT MANUALLY CHANGE THIS!</li>
+						<li><strong>NUMBER backgroundDistance</strong> - The distance effect of the background. The higher the number, the farther will the background appear to be, when moving the viewport. 1 = background moves exactly with the foreground, 2 = background moves half as much as the foreground, 0.5 = (probably undesired effect) background moves twice as much, similar effect to looking through a telescope.</li>
+						<li><strong>NUMBER speed</strong> - The speed of the simulation. 0.5 = slow motion (half speed), 2 = fast-forward (2x speed).</li>
+						<li><strong>NUMBER tickSpeed</strong> - The length of each tick in milliseconds (tickSpeed = 1000/fps).</li>
+						<li><strong>TIMESTAMP lastTick</strong> - The UNIX timestamp (custom object) of the last tick.</li>
+						<li><strong>NUMBER tickTime</strong> - The time passed between current tick and lastTick in seconds. Used for all motion calculations. Very useful for custom functions that calculate some movement.</li>
+						<li><strong>BOOL paused</strong> - If the game is in paused state. Every GAME instance starts in paused state. DO NOT CHANGE THIS VALUE! Use MyGame.start() and MyGame.stop() functions for starting/pausing the game.</li>
+						<li><strong>NUMBER tickCount</strong> - The complete number of ticks since the game started. Does not get reset and is incremented by one every tick. Can be used for creating objects with unique names each tick.</li>
+						<li><strong>NUMBER collisionCount</strong> - The number of collisions that occured in the current tick. Not used for anything by the engine itself.</li>
+						<li><strong>BOOL drawCollisions</strong> - Debug setting. When true, draws all collision points on screen as small red circles.</li>
+						<li><strong>NUMBER cursorX</strong> - The X position of the mouse cursor over the canvas element in pixels. Changes every time the mouse moves.</li>
+						<li><strong>NUMBER cursorY</strong> - The Y position of the mouse cursor over the canvas element in pixels. Changes every time the mouse moves.</li>
+						<li><strong>NUMBER mouseX</strong> - The X coordinate of the mouse position projected into the game coordinate system. Changes every time the mouse moves.</li>
+						<li><strong>NUMBER mouseY</strong> - The Y coordinate of the mouse position projected into the game coordinate system. Changes every time the mouse moves.</li>
+						<li><strong>NUMBER cursorLastX, cursorLastY, mouseLastX, mouseLastY</strong> - Self explanatory. The previous values of all the mouse coordinates.</li>
+						<li><strong>OBJECT events</strong> - An object holding all the event functions. You can attach your own function to these events using the MyGame.attachEvent() function, or you can replace it directly like this: MyGame.events.tick = function() {/*Your code*/}.</li>
+						<li><strong>OBJECT geometry</strong> - An object holding all the geometry objects loaded in the game. DO NOT MODIFY! Use MyGame.createObj() and MyGame.deleteObj() instead.</li>
+						<li><strong>OBJECT entity</strong> - An object holding all the entity objects loaded in the game. DO NOT MODIFY! Use MyGame.createObj() and MyGame.deleteObj() instead.</li>
+						<li><strong>NUMBER numGeometry</strong> - The number of geometry objects in the game. DO NOT MODIFY!</li>
+						<li><strong>NUMBER numEntity</strong> - The number of entity objects in the game. DO NOT MODIFY!</li>
+						<li><strong>ARRAY geomLayers</strong> - All the geometry objects separated into their coresponding layers. Used to optimize rendering. DO NOT MODIFY!</li>
+						<li><strong>ARRAY entLayers</strong> - All the entity objects separated into their coresponding layers. Used to optimize rendering. DO NOT MODIFY!</li>
+						<li><strong>OBJECT texture</strong> - All the textures will be loaded into this object as CANVAS PATTERN objects, after the engine is finished loading (all done before the callback function is run). The individual names are the same as the names defined in the imageSources object. DO NOT MODIFY! You cannot load any more images after the GAME instance is created!</li>
+						<li><strong>OBJECT audio</strong> - All loaded audio elements will be in this object after loading. The individual names are the same as names defined in the audioSources object. Use standard HTML Audio element functions to play / control these. DO NOT MODIFY! You cannot load any more sounds after the GAME instance is created!</li>
+						<li><strong>STRING / CANVAS_PATTERN missingTexture</strong> - The default texture which is used, if object's texture didn't load properly or if none is provided. This value is a string containing a purple color (in the canvas color format) at first, but is replaced by a CANVAS PATTERN of a missing texture (defined as base64 image) immediately after it is loaded.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="game_flow">
+					<h3>Tick flow</h3>
+					<p>Here is a description of all the steps that happen during every tick (in order):</p>
+					<ol>
+						<li>Cancel all other tick requests (in case there are any) to prevent accidental duplication of the tick loop.</li>
+						<li>Schedule the next tick.</li>
+						<li>Reset collision count from previous tick.</li>
+						<li>Get the time that passed since the last tick ran. Used for all physics calculations.</li>
+						<li>Execute the user-specified "beforeTick" event.</li>
+						<li>Calculate the new motion and position of all the moveable entities.</li>
+						<li>Go through all the entities and check for collisions with all the other entities. The following happens with each pair:
+							<ol>
+								<li>If the entities are intersecting, separate them.</li>
+								<li>If the entities are intersecting at their new positions, continue. If not, skip all this and go check other entity pair.</li>
+								<li>Calculate the relative time of collision.</li>
+								<li>Push all the information about the collision into a collisionList array.</li>
+							</ol>
+						</li>
+						<li>Sort all found collisions by time of occurence.</li>
+						<li>Resolve all collisions (calculate new motions and positions).</li>
+						<li>Execute the user-specified "tick" event.</li>
+						<li>Render all visible objects on their coresponding layers.</li>
+						<li>If the debug setting drawCollisions is enabled, draw all collision points as small red circles.</li>
+						<li>Increment the tickCount.</li>
+					<ol>
+				</div>
+				<div class="subsection" id="rendering_layers">
+					<h3>Rendering layers</h3>
+					<p>Rendering layers can be thought of as different planes of the canvas, or the distance of the given object on the Z axis.</p>
+					<p>These layers are used to render all the objects in an ordered fashion, such that the foreground objects will be on top of the background objects.</p>
+					<p>Objects in certain layers are treated as purely aesthetic, and will act as non-solid, which means that they will not collide with anything.</p>
+					<p>Additionally, Geometry objects and Entities have each their own set of layers, which are then stacked on top of each other in the rendering process.</p>
+					<p>This is the order of these layers (from the bottom-most to the top-most layer), as well as their intended usage:</p>
+					<ol>
+						<li><strong>Geometry layer (-1):</strong> Used for background geometry, like background walls. These objects don't cause collisions.</li>
+						<li><strong>Entity layer (-2):</strong> Used for entities that are behind the main level geometry. No collisions.</li>
+						<li><strong>Geometry layer (0):</strong> Used for main level Geometry objects, like floors, platforms, walls, etc. These objects obviously cause collisions.</li>
+						<li><strong>Entity layer (-1):</strong> Used for entities, that are behind the main set of entities (like behind the player). Collisions do work here.</li>
+						<li><strong>Entity layer (0):</strong> Used for the main set of entities. The player entity should be on this layer. Collisions obviously work here.</li>
+						<li><strong>Entity layer (1):</strong> Used for the entities, that are in front of the main set of entities (like in front of the player). Collisions work here.</li>
+						<li><strong>Geometry layer (1):</strong> Used for foreground geometry, like pillars or front walls. These objects don't cause collisions.</li>
+						<li><strong>Entity layer (2):</strong> The top-most layer, used for foreground entities, like birds or even custom GUI elements. There are no collisions of course.</li>
+					<ol>
+				</div>
+			</div>
+			<div class="section">
+				<h2>Object structures</h2>
+				<div class="subsection" id="shape_info">
+					<h3>Shape structure</h3>
+					<p>There are two types of shapes - ShapeRect and ShapeCircle.</p>
+					<p>Both shapes are created as an instance of their coresponding constructor.</p>
+					<p>Their only difference is, that rectangles are defined with width and height, whereas circles are defined with radius.</p>
+					<p>All the other properties are the same, so I will not be making any difference between them.</p>
+				</div>
+				<div class="subsection" id="shape_new">
+					<h3>new ShapeRect(NUMBER width, NUMBER height, CANVAS_PATTERN / STRING texture, NUMBER outlineWidth, CANVAS_PATTERN / STRING outlineTexture)</h3>
+					<h3>OR</h3>
+					<h3>new ShapeCircle(NUMBER radius, CANVAS_PATTERN / STRING texture, NUMBER outlineWidth, CANVAS_PATTERN / STRING outlineTexture)</h3>
+					<ul>
+						<li><strong>NUMBER width, height / NUMBER radius</strong> - The width and height or radius of the shape. Both width and height are saved with their value divided by 2, because halves are used much more often than the full sizes.</li>
+						<li><strong>CANVAS_PATTERN / STRING texture</strong> - The texture of the shape. You can provide rgb or rgba colors inside a string, or use the rgb() / rgba() functions to generate those automatically. Otherwise, you can provide an image in the CANVAS PATTERN format, all of which are automatically created from all the loaded images at initialization and can be found in MyGame.texture.YOUR_TEXTURE_NAME.</li>
+						<li><strong>NUMBER outlineWidth</strong> - Optional value. Objects don't have outlines by default. If you want an outline, set this number to be your desired width of the outline.</li>
+						<li><strong>CANVAS_PATTERN / STRING outlineTexture</strong> - Required only if outlineWidth is also defined. The texture of the outline. The same rules as with the main texture apply here.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="shape_structure">
+					<h3>Internal Shape structure</h3>
+					<p>These are all the parameters and their exact names, that are saved inside a Shape object:</p>
+					<ul>
+						<li><strong>STRING shape</strong> - The shape of the Shape (if that makes sense). Can be either "rect" or "circle".</li>
+						<li><strong>NUMBER width, NUMBER height / NUMBER r</strong> - If the shape is a rectangle: The half of the width and the half of the height (each stored separately). If it's a circle: the radius of the circle.</li>
+						<li><strong>OBJECT style</strong>
+							<ul>
+								<li><strong>CANVAS_PATTERN / STRING texture</strong> - The texture of the shape. Can be either a string in the canvas color format, or an image in the CANVAS PATTERN format.</li>
+								<li><strong>NUMBER outlineWidth</strong> - The width of the outline. Is set to undefined, if the shape has no outline.</li>
+								<li><strong>CANVAS_PATTERN / STRING outlineTexture</strong> - The texture of the outline. Can be either a string in the canvas color format, or an image in the CANVAS PATTERN format. Is set to undefined, if the shape has no outline.</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div class="subsection" id="geometry_info">
+					<h3>Geometry info</h3>
+					<p>Geometry objects are immoveable objects, that are used to create the game level.</p>
+					<p>They are used for floors, walls, and other similar objects.</p>
+				</div>
+				<div class="subsection" id="geometry_new">
+					<h3>new Geometry(SHAPE shape, BOOL solid, BOOL visible)</h3>
+					<ul>
+						<li><strong>SHAPE shape</strong> - A shape object, either ShapeRect or ShapeCircle.</li>
+						<li><strong>BOOL solid</strong> - True = solid, false = not solid, other objects can pass through it.</li>
+						<li><strong>BOOL visible</strong> - True = visible, false = invisible, won't be rendered.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="geometry_structure">
+					<h3>Internal Geometry structure</h3>
+					<p>These are all the parameters and their exact names, that are saved inside a Geometry object:</p>
+					<ul>
+						<li><strong>STRING shape</strong> - The shape of the object. Can be either "rect" or "circle".</li>
+						<li><strong>NUMBER width, NUMBER height / NUMBER r</strong> - If the object is a rectangle: The half of the width and the half of the height (each stored separately). If it's a circle: the radius of the circle.</li>
+						<li><strong>OBJECT style</strong>
+							<ul>
+								<li><strong>CANVAS_PATTERN / STRING texture</strong> - The texture of the object. Can be either a string in the canvas color format, or an image in the CANVAS PATTERN format.</li>
+								<li><strong>NUMBER outlineWidth</strong> - The width of the outline. Is set to undefined, if the object has no outline.</li>
+								<li><strong>CANVAS_PATTERN / STRING outlineTexture</strong> - The texture of the outline. Can be either a string in the canvas color format, or an image in the CANVAS PATTERN format. Is set to undefined, if the object has no outline.</li>
+							</ul>
+						</li>
+						<li><strong>BOOL solid</strong> - If the object is solid. True = solid, false = not solid, other objects can pass through it.</li>
+						<li><strong>BOOL visible</strong> - If the object will be rendered. True = visible, false = invisible.</li>
+					</ul>
+				</div>
+				<div class="subsection">
+					<h3>Internal Geometry structure AFTER LOADED INTO THE GAME</h3>
+					<p>The Geometry object gains these additional properties, after it is put into the game:</p>
+					<ul>
+						<li><strong>STRING name</strong> - The unique name of the object.</li>
+						<li><strong>NUMBER x</strong> - The X coordinate of the object.</li>
+						<li><strong>NUMBER y</strong> - The Y coordinate of the object.</li>
+						<li><strong>NUMBER layer</strong> - The layer on which the object is located (-1 to 1).</li>
+					</ul>
+				</div>
+				<div class="subsection" id="entity_info">
+					<h3>Entity info</h3>
+					<p>Entities are all moveable objects.</p>
+					<p>They are used for boxes, moving platforms, projectiles, but most importantly - for the player.</p>
+					<p>They use the same first 3 properties as Geometry objects.</p>
+				</div>
+				<div class="subsection" id="entity_new">
+					<h3>new Entity(SHAPE shape, BOOL solid, BOOL visible, BOOL physics, NUMBER mass, NUMBER bounce, NUMBER airResistance, NUMBER friction, NUMBER gravity)</h3>
+					<ul>
+						<li><strong>SHAPE shape</strong> - A shape object, either ShapeRect or ShapeCircle.</li>
+						<li><strong>BOOL solid</strong> - True = solid, false = not solid, other objects can pass through it.</li>
+						<li><strong>BOOL visible</strong> - True = visible, false = invisible, won't be rendered.</li>
+						<li><strong>BOOL physics</strong> - True = entity can move, false = entity is immoveable and stays frozen in place.</li>
+						<li><strong>NUMBER mass</strong> - The mass of the entity. This doesn't affect gravity! (As it shouldn't.)</li>
+						<li><strong>NUMBER bounce</strong> - The elasticity of the entity. 0 = not at all bouncy, 1 = completely bouncy.</li>
+						<li><strong>NUMBER airResistance</strong> - The speed damping of the entity in air. 0 = no slowing down, 1 = fairly quick slow-down to full stop, >1 = even quicker slow-down.</li>
+						<li><strong>NUMBER friction</strong> - The speed damping of the entity when touching something. Same rules apply here as with airResistance.</li>
+						<li><strong>NUMBER gravity</strong> - This value is optional. Default gravity is 9.8, 0 = no gravity.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="entity_structure">
+					<h3>Internal Entity structure</h3>
+					<p>These are all the parameters and their exact names, that are saved inside an Entity object:</p>
+					<ul>
+						<li><strong>STRING shape</strong> - The shape of the entity. Can be either "rect" or "circle".</li>
+						<li><strong>NUMBER width, NUMBER height / NUMBER r</strong> - If the entity is a rectangle: The half of the width and the half of the height (each stored separately). If it's a circle: the radius of the circle.</li>
+						<li><strong>OBJECT style</strong>
+							<ul>
+								<li><strong>CANVAS_PATTERN / STRING texture</strong> - The texture of the entity. Can be either a string in the canvas color format, or an image in the CANVAS PATTERN format.</li>
+								<li><strong>NUMBER outlineWidth</strong> - The width of the outline. Is set to undefined, if the entity has no outline.</li>
+								<li><strong>CANVAS_PATTERN / STRING outlineTexture</strong> - The texture of the outline. Can be either a string in the canvas color format, or an image in the CANVAS PATTERN format. Is set to undefined, if the entity has no outline.</li>
+							</ul>
+						</li>
+						<li><strong>BOOL solid</strong> - If the entity is solid. True = solid, false = not solid, other objects can pass through it.</li>
+						<li><strong>BOOL visible</strong> - If the entity will be rendered. True = visible, false = invisible, won't be rendered.</li>
+						<li><strong>BOOL physics</strong> - If any forces can act upon this entity. True = entity can move, false = entity is immoveable and stays frozen in place.</li>
+						<li><strong>NUMBER mass</strong> - The mass of the entity.</li>
+						<li><strong>NUMBER bounce</strong> - The elasticity of the entity. 0 = not at all bouncy, 1 = completely bouncy.</li>
+						<li><strong>NUMBER airResistance</strong> - The speed damping of the entity in air. 0 = no slowing down, 1 = fairly quick slow-down to full stop, >1 = even quicker slow-down.</li>
+						<li><strong>NUMBER friction</strong> - The speed damping of the entity when touching something. Same rules apply here as with airResistance.</li>
+						<li><strong>NUMBER gravity</strong> - Set to 9.8 by default.</li>
+					</ul>
+				</div>
+				<div class="subsection">
+					<h3>Internal Entity structure AFTER LOADED INTO THE GAME</h3>
+					<p>The Entity object gains these additional properties, after it is put into the game:</p>
+					<ul>
+						<li><strong>STRING name</strong> - The unique name of the entity.</li>
+						<li><strong>NUMBER x</strong> - The X coordinate of the entity.</li>
+						<li><strong>NUMBER y</strong> - The Y coordinate of the entity.</li>
+						<li><strong>NUMBER layer</strong> - The layer on which the entity is located (-2 to 2).</li>
+						<li><strong>OBJECT lastPos</strong>
+							<ul>
+								<li><strong>NUMBER x</strong> - The previous X coordinate of the entity.</li>
+								<li><strong>NUMBER y</strong> - The previous Y coordinate of the entity.</li>
+							</ul>
+						</li>
+						<li><strong>VECTOR motion</strong>
+							<ul>
+								<li><strong>NUMBER x</strong> - The motion of the entity in the X direction (in pixels per second).</li>
+								<li><strong>NUMBER y</strong> - The motion of the entity in the Y direction (in pixels per second).</li>
+							</ul>
+						</li>
+						<li><strong>VECTOR move</strong>
+							<ul>
+								<li><strong>NUMBER x</strong> - The change of the X coordinate of the entity.</li>
+								<li><strong>NUMBER y</strong> - The change of the Y coordinate of the entity.</li>
+							</ul>
+						</li>
+						<li><strong>VECTOR force</strong>
+							<ul>
+								<li><strong>NUMBER x</strong> - The force on the entity in the X direction. Gets reset every tick, after the force is applied.</li>
+								<li><strong>NUMBER y</strong> - The force on the entity in the Y direction. Gets reset every tick, after the force is applied.</li>
+							</ul>
+						</li>
+						<li><strong>BOOL surface</strong> - If the entity is currently touching any surface.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="section">
+				<h2>Engine events</h2>
+				<div class="subsection" id="event_info">
+					<h3>Overview</h3>
+					<p>Engine events are one of the most important parts of creating scripts for your game.</p>
+					<p>They are used to pass a custom function to the engine, that is then executed every time the given event occurs.</p>
+					<p>You can attach a custom function to any of these events using the function MyGame.attachEvent().</p>
+					<p>You can only attach 1 function to each event, but this doesn't actually limit you in any way, as you can just call any other function you want inside this function.</p>
+					<p>The following section is a list of all the events and their usage.</p>
+				</div>
+				<div class="subsection" id="event_usage">
+					<h3>Event list and usage</h3>
+					<ul>
+						<li><strong>beforeTick</strong> - This event is fired before every tick is processed. This event should be used only when necessary. For most purposes, the tick event should be used instead.</li>
+						<li><strong>tick</strong> - This event is fired every tick, after everything is processed. THIS IS THE MOST USEFUL EVENT. The majority of your code will need to be executed every tick, and so it needs to be located inside the function attached to this event.</li>
+						<li><strong>render</strong> - This event is fired everytime after the canvas gets re-rendered. This is most useful for creating custom GUIs or drawing text on screen, because it will be drawn on top of the newly rendered frame. Otherwise everything would get deleted when the canvas gets re-rendered.</li>
+						<li><strong>collision</strong> - This event is also very important. It gets fired whenever two objects collide, which means, that it may fire multiple times within a single tick. It passes to your function one important variable, which is the collision result object. This object contains all the important information about the collision, including both colliding objects.</li>
+						<li><strong>mousedown</strong> - This event is fired when any mouse button is pressed. It passes two variables - the first is the mouse button that was pressed ("left", "middle", "right") and the second is the original browser event itself, so you can call .preventDefault() on it, if needed. The mouse coordinates aren't passed, as they can always be found stored in your GAME instance.</li>
+						<li><strong>mouseup</strong> - This event is fired when any mouse button is unpressed. Everything is the same as with mousedown.</li>
+						<li><strong>mousemove</strong> - This event is fired everytime the mouse is moved. It passes three variables - the first two are the X and Y amounts of pixels the mouse was moved and the third one is, again, the original browser event.</li>
+						<li><strong>keydown</strong> - This event is fired everytime a key is pressed. It passes two variables - the key's ID and the original browser event. Use the G.key object to compare the key ID against.</li>
+						<li><strong>keyup</strong> - Fired when a key is unpressed. Everything else is the same as with keydown.</li>
+						<li><strong>windowResize</strong> - This event is fired everytime the window is resized. It passes two variables, the width and the height of the window.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="section">
+				<h2>User engine functions</h2>
+				<div class="subsection" id="engine_functions_info">
+					<h3>Overview</h3>
+					<p>User engine functions are functions, which are defined as prototype and are tied to every GAME instance.</p>
+					<p>Some of these are used by the engine itself, while others are not.</p>
+					<p>There is also a handful of other functions, which are also tied to the GAME instance, but these have been all left out of this documentation, because they don't have any purpose for the user, as they are only used internally.</p>
+					<p>To call any of these functions, use MyGame.the_wanted_function().</p>
+				</div>
+				<div class="subsection" id="attachEvent">
+					<h3>attachEvent(STRING event_name, FUNCTION callback)</h3>
+					<p>This function is used for attaching custom functions to specific engine events.</p>
+					<p>See the "Engine events" section for more info, or to see what each event does.</p>
+					<ul>
+						<li><strong>STRING event_name</strong> - The name of the event you want your function to be attached to.</li>
+						<li><strong>FUNCTION callback</strong> - The function to execute, when the event gets fired.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="updateCanvasSize">
+					<h3>updateCanvasSize(NUMBER width, NUMBER height, BOOL redraw)</h3>
+					<p>This function is used for resizing the canvas.</p>
+					<ul>
+						<li><strong>NUMBER width</strong> - The new width of the canvas. If set to -1, the canvas will automatically adjust to always fill the entire width of the screen.</li>
+						<li><strong>NUMBER height</strong> - The new height of the canvas. If set to -1, the canvas will automatically adjust to always fill the entire height of the screen.</li>
+						<li><strong>BOOL redraw</strong> - If the game should re-render the content on the resized canvas. True = force the game to re-render, false = apply the changes, but do not immediately re-render the content. This should be set to true in most cases.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="moveCanvas">
+					<h3>moveCanvas(STRING direction, NUMBER amount, BOOL usePixels, BOOL redraw)</h3>
+					<p>Moves the canvas viewport in the specified direction by the specified amount.</p>
+					<ul>
+						<li><strong>STRING direction</strong> - The direction in which to move the canvas viewport. ("left", "right", "up", "down")</li>
+						<li><strong>NUMBER amount</strong> - The move amount.</li>
+						<li><strong>BOOL usePixels</strong> - What scale to use when the canvas is at different zoom level. True = canvas viewport will be moved by pixels seen on screen, no matter which zoom level it's at. False = canvas viewport will be moved relative to game coordinate system, which will look differently on different zoom levels.</li>
+						<li><strong>BOOL redraw</strong> - If the changes should be seen immediately. True = force the game to re-render, false = apply the changes, but do not immediately re-render the content. Use false when using this function while the game is running, as it will automatically re-render every tick, so forcing it to re-render immediately would be useless and wasteful.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="moveCanvasTo">
+					<h3>moveCanvasTo(NUMBER x, NUMBER y, BOOL redraw)</h3>
+					<p>Moves the canvas viewport's top-left corner to the specified coordinates.</p>
+					<p>For moving the canvas center, use MyGame.centerCanvasTo().</p>
+					<ul>
+						<li><strong>NUMBER x</strong> - The new x coordinate of the canvas viewport's top-left corner.</li>
+						<li><strong>NUMBER y</strong> - The new y coordinate of the canvas viewport's top-left corner.</li>
+						<li><strong>BOOL redraw</strong> - If the changes should be seen immediately. True = force the game to re-render, false = apply the changes, but do not immediately re-render the content. Use false when using this function while the game is running, as it will automatically re-render every tick, so forcing it to re-render immediately would be useless and wasteful.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="centerCanvasTo">
+					<h3>centerCanvasTo(NUMBER x, NUMBER y, NUMBER newZoom, BOOL redraw)</h3>
+					<p>Centers the canvas viewport to the specified coordinates.</p>
+					<ul>
+						<li><strong>NUMBER x</strong> - The x coordinate the canvas should center to.</li>
+						<li><strong>NUMBER y</strong> - The y coordinate the canvas should center to.</li>
+						<li><strong>NUMBER newZoom</strong> - Optional value. If specified, canvas will be zoomed in the process. You can set this to false to skip this value.</li>
+						<li><strong>BOOL redraw</strong> - If the changes should be seen immediately. True = force the game to re-render, false = apply the changes, but do not immediately re-render the content. Use false when using this function while the game is running, as it will automatically re-render every tick, so forcing it to re-render immediately would be useless and wasteful.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="zoomCanvas">
+					<h3>zoomCanvas(NUMBER zoomLevel, BOOL redraw)</h3>
+					<p>Sets the canvas zoom to specified level, focused on the center.</p>
+					<ul>
+						<li><strong>NUMBER zoomLevel</strong> - The new zoom level of the canvas. 1 = default, 2 = zoomed-in, 0.5 = zoomed out.</li>
+						<li><strong>BOOL redraw</strong> - If the changes should be seen immediately. True = force the game to re-render, false = apply the changes, but do not immediately re-render the content. Use false when using this function while the game is running, as it will automatically re-render every tick, so forcing it to re-render immediately would be useless and wasteful.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="resetCanvas">
+					<h3>resetCanvas(BOOL redraw)</h3>
+					<p>Resets the canvas position and zoom to default values - X = 0, Y = 0, Zoom = 1.</p>
+					<ul>
+						<li><strong>BOOL redraw</strong> - If the changes should be seen immediately. True = force the game to re-render, false = apply the changes, but do not immediately re-render the content. Use false when using this function while the game is running, as it will automatically re-render every tick, so forcing it to re-render immediately would be useless and wasteful.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="setBackground">
+					<h3>setBackground(STRING image / color, BOOL isImage, BOOL static, NUMBER distance)</h3>
+					<p>Sets a background texture for the canvas.</p>
+					<p>This texture is set as a css style of the canvas, and isn't rendered by the canvas itself in any way. The canvas is always transparent on the pixels, where there isn't any content.</p>
+					<ul>
+						<li><strong>STRING image / color</strong> - The new texture for the canvas. For specifying images, use the image URL, not a texture! For specifying color, use the rgb() / rgba() functions. If you specify color, not an image, you can leave all the following parameters empty.</li>
+						<li><strong>BOOL isImage</strong> - True = the previous parameter was an image, false = the previous parameter was a color.</li>
+						<li><strong>BOOL static</strong> - If the backgound should be static. True = the background will not move, false = the background will follow the movement of the canvas. If the background is not an image, it will always be static.</li>
+						<li><strong>NUMBER distance</strong> - The distance effect of the background. The higher the number, the farther will the background appear to be when moving the canvas. 1 = background moves exactly with the foreground, 2 = background moves half as much as the foreground, 0.5 = (probably undesired effect) background moves twice as much, similar effect to looking through a telescope.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="reposBackground">
+					<h3>reposBackground(NUMBER x, NUMBER y)</h3>
+					<p>This function is not really for general use.</p>
+					<p>It will fake the movement of the canvas, so that the background will look like it's following it.</p>
+					<p>This function is also used internally by the engine itself to make the background actually follow the real canvas movement. If you want to override this by your own movement, the background needs to be static.</p>
+					<ul>
+						<li><strong>NUMBER x</strong> - The fake X position of the canvas, according to which the background should be moved.</li>
+						<li><strong>NUMBER y</strong> - The fake Y position of the canvas, according to which the background should be moved.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="clearCanvas">
+					<h3>clearCanvas()</h3>
+					<p>This function clears the visible area of the canvas viewport.</p>
+					<p>Used internally by the engine everytime any rendering is done, because the canvas needs to be cleared before anything new gets drawn on it.</p>
+				</div>
+				<div class="subsection" id="drawRect">
+					<h3>drawRect(NUMBER center_x, NUMBER center_y, NUMBER half_width, NUMBER half_height, CANVAS_PATTERN / STRING texture, NUMBER outlineWidth, CANVAS_PATTERN / STRING outlineTexture)</h3>
+					<p>Draws a rectangle in the specified position with the specified parameters.</p>
+					<p>The outline is optional and can be left empty.</p>
+					<ul>
+						<li><strong>NUMBER center_x</strong> - The X coordinate of the center of the rectangle.</li>
+						<li><strong>NUMBER center_y</strong> - The Y coordinate of the center of the rectangle.</li>
+						<li><strong>NUMBER half_width</strong> - Half of the width of the rectangle. The distance from it's center to it's side.</li>
+						<li><strong>NUMBER half_height</strong> - Half of the height of the rectangle. The distance from it's center to it's top / bottom.</li>
+						<li><strong>CANVAS_PATTERN / STRING texture</strong> - The texture of the rectangle. Either provide a color using the rgb() / rgba() functions, or provide an image in the CANVAS PATTERN format. You can use the pre-converted textures in MyGame.texture or convert your own image using the MyGame.createTexture() function.</li>
+						<li><strong>NUMBER outlineWidth</strong> - Optional value. The width of the outline.</li>
+						<li><strong>CANVAS_PATTERN / STRING outlineTexture</strong> - If outlineWidth is specified, this needs to be specified too. The texture of the outline. Same rules apply here as with the main texture.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="drawCircle">
+					<h3>drawCircle(NUMBER center_x, NUMBER center_y, NUMBER radius, CANVAS_PATTERN / STRING texture, NUMBER outlineWidth, CANVAS_PATTERN / STRING outlineTexture)</h3>
+					<p>Draws a circle in the specified position with the specified parameters.</p>
+					<p>The outline is optional and can be left empty.</p>
+					<ul>
+						<li><strong>NUMBER center_x</strong> - The X coordinate of the center of the circle.</li>
+						<li><strong>NUMBER center_y</strong> - The Y coordinate of the center of the circle.</li>
+						<li><strong>NUMBER radius</strong> - The radius of the circle. The distance from the center to the edge.</li>
+						<li><strong>CANVAS_PATTERN / STRING texture</strong> - The texture of the circle. Either provide a color using the rgb() / rgba() functions, or provide an image in the CANVAS PATTERN format. You can use the pre-converted textures in MyGame.texture or convert your own image using the MyGame.createTexture() function.</li>
+						<li><strong>NUMBER outlineWidth</strong> - Optional value. The width of the outline.</li>
+						<li><strong>CANVAS_PATTERN / STRING outlineTexture</strong> - If outlineWidth is specified, this needs to be specified too. The texture of the outline. Same rules apply here as with the main texture.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="drawLine">
+					<h3>drawLine(NUMBER start_x, NUMBER start_y, NUMBER end_x, NUMBER end_y, NUMBER width, CANVAS_PATTERN / STRING texture)</h3>
+					<p>Draws a line from the starting point to the end point with the specified parameters.</p>
+					<ul>
+						<li><strong>NUMBER start_x</strong> - The X coordinate of the starting position of the line.</li>
+						<li><strong>NUMBER start_y</strong> - The Y coordinate of the starting position of the line.</li>
+						<li><strong>NUMBER end_x</strong> - The X coordinate of the end position of the line.</li>
+						<li><strong>NUMBER end_y</strong> - The Y coordinate of the end position of the line.</li>
+						<li><strong>NUMBER width</strong> - The width of the line.</li>
+						<li><strong>CANVAS_PATTERN / STRING texture</strong> - The texture of the line. Either provide a color using the rgb() / rgba() functions, or provide an image in the CANVAS PATTERN format. You can use the pre-converted textures in MyGame.texture or convert your own image using the MyGame.createTexture() function.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="drawText">
+					<h3>drawText(STRING text, NUMBER x, NUMBER y, BOOL centered, STRING fontStyle, CANVAS_PATTERN / STRING texture, NUMBER outlineWidth, CANVAS_PATTERN / STRING outlineTexture)</h3>
+					<p>Draws text on the canvas in the specified location with the specified parameters.</p>
+					<ul>
+						<li><strong>STRING text</strong> - The text you want to draw.</li>
+						<li><strong>NUMBER x</strong> - The X coordinate of the text.</li>
+						<li><strong>NUMBER y</strong> - The X coordinate of the text.</li>
+						<li><strong>BOOL centered</strong> - If the X,Y coordinates should corespond to the center of the text. True = the text will be centered at the X,Y coordinates, false = the X,Y coordinates will corespond to the top-left corner of the text.</li>
+						<li><strong>STRING fontStyle</strong> - The style of the text in the canvas font style format. Use the MyGame.createFontStyle() function to easily generate this style.</li>
+						<li><strong>CANVAS_PATTERN / STRING texture</strong> - The texture of the text. Either provide a color using the rgb() / rgba() functions, or provide an image in the CANVAS PATTERN format. You can use the pre-converted textures in MyGame.texture or convert your own image using the MyGame.createTexture() function.</li>
+						<li><strong>NUMBER outlineWidth</strong> - Optional value. The width of the outline of the text.</li>
+						<li><strong>CANVAS_PATTERN / STRING outlineTexture</strong> - If outlineWidth is specified, this needs to be specified too. The texture of the outline of the text. Same rules apply here as with the main texture.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="measureText">
+					<h3>measureText(STRING text, STRING fontStyle, NUMBER outlineWidth)</h3>
+					<p>Get the width of the text in pixels.</p>
+					<p>This is the only way to know, how much space will the text take up on the canvas.</p>
+					<p>If you need to know the height of the text instead, you just need to know the font size of the text, as it directly coresponds with the height of the text in pixels. (If the text has an outline, you need to take that into account too.)</p>
+					<ul>
+						<li><strong>STRING text</strong> - The text you want to measure.</li>
+						<li><strong>STRING fontStyle</strong> - The style of the text in the canvas font style format. Use the MyGame.createFontStyle() function to easily generate this style.</li>
+						<li><strong>NUMBER outlineWidth</strong> - Optional value. The width of the outline of the text.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="createTexture">
+					<h3>createTexture(HTML_IMAGE image)</h3>
+					<p>Create a CANVAS PATTERN from the given image.</p>
+					<p>This image needs to be an actual Image Element, not just a link.</p>
+					<p>The image also needs to be already loaded, or this function will fail.</p>
+					<ul>
+						<li><strong>HTML_IMAGE image</strong> - The image you want to convert to the CANVAS PATTERN texture.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="createFontStyle">
+					<h3>createFontStyle(NUMBER fontSize, NUMBER boldLevel, NUMBER italicLevel, STRING fontFamily)</h3>
+					<p>Generates a string in the canvas font style format.</p>
+					<p>Used for drawing text on the canvas.</p>
+					<p>Only the fontSize value is required, other parameters are optional. The default fontFamily will be Arial.</p>
+					<ul>
+						<li><strong>NUMBER fontSize</strong> - The size of the font in pixels. This value coresponds with the actual height of the text, when it is drawn on the canvas.</li>
+						<li><strong>NUMBER boldLevel</strong> - The strength of the bold effect. 1 = bold, 2 = extra bold, any other value = not bold.</li>
+						<li><strong>NUMBER italicLevel</strong> - The strength of the italic effect. 1 = italic, 2 = twice as italic, any other value = not italic.</li>
+						<li><strong>STRING fontFamily</strong> - The name of the font family you want to use. Default is Arial.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="createObj">
+					<h3>createObj(GEOMETRY / ENTITY object, STRING name, NUMBER x, NUMBER y, NUMBER layer)</h3>
+					<p>Puts an object into the game. Can be either Geometry or Entity object.</p>
+					<p>This is the only way to actually put objects into the game. The object you're trying to put into the game should already be created beforehand, using the Geometry / Entity constructor.</p>
+					<ul>
+						<li><strong>GEOMETRY / ENTITY object</strong> - The object you want to put into the game.</li>
+						<li><strong>STRING name</strong> - The UNIQUE name of the object, specific to object type. You can have a Geometry object with the same name as an Entity object, but you cannot have two objects in the same category with the same name.</li>
+						<li><strong>NUMBER x</strong> - The X coordinate where to put the object (center).</li>
+						<li><strong>NUMBER y</strong> - The Y coordinate where to put the object (center).</li>
+						<li><strong>NUMBER layer</strong> - The rendering layer on which to put the object. Read the "Rendering layers" section to learn more. Can range from -1 to 1 for Geometry objects, and -2 to 2 for Entity objects.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="deleteObj">
+					<h3>deleteObj(GEOMETRY / ENTITY object)</h3>
+					<p>Permamently deletes an object from the game.</p>
+					<p>This is the only way to truly remove an object from the game. The object you're trying to remove needs to be an actual in-game object, not just it's name.</p>
+					<ul>
+						<li><strong>GEOMETRY / ENTITY object</strong> - The object you want to remove from the game.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="getObjectAtPos">
+					<h3>getObjectAtPos(NUMBER x, NUMBER y, BOOL onlyOne, BOOL searchGeometry, BOOL searchEntity)</h3>
+					<p>Checks which objects are located at the given coordinates.</p>
+					<p>Goes through all the objects in the order they appear on screen and checks if they intersect with the given coordinates.</p>
+					<p>Only the first two parameters need to be specified, the rest will be set to default values (true, false, true).</p>
+					<ul>
+						<li><strong>NUMBER x</strong> - The X coordinate of the check.</li>
+						<li><strong>NUMBER y</strong> - The Y coordinate of the check.</li>
+						<li><strong>BOOL onlyOne</strong> - True = the search will stop after an object is found (returns the object itself, or returns false if no object was found), false = the search will go through all the objects (returns an array with all the objects, or empty array). Is set to true by default.</li>
+						<li><strong>BOOL searchGeometry</strong> - If the search should be looking for Geometry objects. False by default.</li>
+						<li><strong>BOOL searchEntity</strong> - If the search should be looking for Geometry objects. False by default.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="collisionCheck">
+					<h3>collisionCheck(GEOMETRY / ENTITY object1, GEOMETRY / ENTITY object2, BOOL useNewPosition)</h3>
+					<p>Checks if objects are overlaping each other.</p>
+					<p>It doesn't matter, if the objects aren't solid.</p>
+					<ul>
+						<li><strong>GEOMETRY / ENTITY object1</strong> - The first object check.</li>
+						<li><strong>GEOMETRY / ENTITY object2</strong> - The second object to check with.</li>
+						<li><strong>BOOL useNewPosition</strong> - Optional value. True = objects will be checked at their new positions (after all physics have been applied), false = objects will be checked at their previous positions before the tick happened. This is set to true by default.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="start">
+					<h3>start()</h3>
+					<p>Starts / continues the game loop.</p>
+					<p>This function needs to be called after the game is created, because every game starts off in the paused state.</p>
+					<p>The current state of the game can be found in MyGame.paused.</p>
+				</div>
+				<div class="subsection" id="stop">
+					<h3>stop()</h3>
+					<p>Stops (pauses) the game loop.</p>
+					<p>The current state of the game can be found in MyGame.paused.</p>
+				</div>
+				<div class="subsection" id="tick">
+					<h3>tick()</h3>
+					<p>Runs the game's tick function.</p>
+					<p>This function runs automatically when the game is running. Do not interfere with it.</p>
+					<p>Useful only in rare cases, mainly for running something in step mode.</p>
+				</div>
+				<div class="subsection" id="render">
+					<h3>render()</h3>
+					<p>Runs the game's rendering function.</p>
+					<p>This function runs automatically at the end of each tick.</p>
+					<p>Clears the canvas and then draws all game objects on it.</p>
+					<p>Running this function manually doesn't have many uses. It could, however, be used when the game is in paused state and you are using a custom GUI menu.</p>
+				</div>
+			</div>
+			<div class="section">
+				<h2>Custom Game Utilities (G)</h2>
+				<div class="subsection" id="game_utilities_info">
+					<h3>Overview</h3>
+					<p>These utilities are not tied to the GAME instance. They are separate functions and constants located inside an global object called G.</p>
+					<p>Some of these are used by the engine itself, mainly for collision detection, while others are there just for the user.</p>
+					<p>To call any of these functions, use G.the_wanted_function().</p>
+				</div>
+				<div class="subsection" id="instances">
+					<h3>instances[]</h3>
+					<p>This array holds reference to all the GAME instances, that have been created.</p>
+				</div>
+				<div class="subsection" id="key">
+					<h3>key{}</h3>
+					<p>This object holds name-value pairs of key names and their ids.</p>
+					<p>This is very useful when deciding, which keys have been presed in the engine event "keydown" or "keyup".</p>
+					<p>This might look something like this: if(pressed_key_ID === G.key.up) //do something.</p>
+				</div>
+				<div class="subsection" id="keyActive">
+					<h3>keyActive(NUMBER keyID)</h3>
+					<p>This function checks a keyStates array to see, if the given key is currently being pressed down.</p>
+					<p>This can be used in combination with the G.key object, which may look something like this: if(G.keyActive(G.key.up)) //do something.</p>
+				</div>
+				<div class="subsection" id="mouseActive">
+					<h3>mouseActive{}</h3>
+					<p>This object holds the states of the three mouse buttons.</p>
+					<p>They are simply named left, middle and right, and are all boolean values.</p>
+				</div>
+				<div class="subsection" id="isMobile">
+					<h3>isMobile</h3>
+					<p>This is a simple boolean constant, which specifies, if the user is using a touchscreen device.</p>
+					<p>There is a small problem, that if the user is using a laptop with touchscreen display, this constant will also be true, but in general, it is a easy check if the user is using a smartphone.</p>
+				</div>
+				<div class="subsection" id="saveToFile">
+					<h3>saveToFile(STRING filename, STRING extension, ANY_TYPE data)</h3>
+					<p>This function converts the provided data into a JSON string format, puts it into a file and then triggers a download of this file.</p>
+					<ul>
+						<li><strong>STRING filename</strong> - The name of the file, that will be downloaded.</li>
+						<li><strong>STRING extension</strong> - The extension of the file (without the dot). Use txt in most cases.</li>
+						<li><strong>ANY_TYPE data</strong> - The data that will be put into the file. This data can be anything, in most cases you would want to use an array. WARNING - After saving custom object types (like Entity or Vector), they will not remember their type!</li>
+					</ul>
+				</div>
+				<div class="subsection" id="openFileDlg">
+					<h3>openFileDlg(FUNCTION callback)</h3>
+					<p>This function opens the file dialogue window, which let's the user select a file on their computer.</p>
+					<p>WARNING - If the user closes the file dialogue and doesn't choose a file, the callback won't be run at all (it's not possible to detect). You need to account for this yourself.</p>
+					<ul>
+						<li><strong>FUNCTION callback</strong> - The function to run, when the user selects a file.</li>
+					</ul>
+					<p>If the user selects a file, the callback function will be run with three parameters passed to it.</p>
+					<ul>
+						<li><strong>FILE file</strong> - The opened file itself. Must be read using the G.readFile() function, before it is of any use.</li>
+						<li><strong>STRING fileName</strong> - The complete name of the opened file, including the extension.</li>
+						<li><strong>NUMBER fileSize</strong> - The size of the opened file (in bytes).</li>
+					</ul>
+				</div>
+				<div class="subsection" id="readFile">
+					<h3>readFile(FILE file, BOOL parse, FUNCTION callback)</h3>
+					<p>This function reads the contents of the provided file.</p>
+					<ul>
+						<li><strong>FILE file</strong> - The file you want to read. Use G.openFileDlg() let the user select a file first.</li>
+						<li><strong>BOOL parse</strong> - If the contents of the file should be parsed as JSON. True = the callback will return the parsed data as javascript variable, false = the callback will return the contents of the file as a string.</li>
+						<li><strong>FUNCTION callback</strong> - The function to call when the file is read. Passes one variable, which will either hold the whole file contents as a string, or it will hold the parsed content directly, depending on the last setting.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="getDistance">
+					<h3>getDistance(NUMBER start_x, NUMBER start_y, NUMBER end_x, NUMBER end_y)</h3>
+					<p>This function calculates the pythagorean distance between two points.</p>
+					<ul>
+						<li><strong>NUMBER start_x</strong> - The X coordinate of the first point.</li>
+						<li><strong>NUMBER start_y</strong> - The Y coordinate of the first point.</li>
+						<li><strong>NUMBER end_x</strong> - The X coordinate of the second point.</li>
+						<li><strong>NUMBER end_y</strong> - The Y coordinate of the second point.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="getDistanceNoSqrt">
+					<h3>getDistanceNoSqrt(NUMBER start_x, NUMBER start_y, NUMBER end_x, NUMBER end_y)</h3>
+					<p>This function partially calculates the pythagorean distance between two points.</p>
+					<p>This function doesn't have many uses. It doesn't return the true distance, because it doesn't square-root the calculated value.</p>
+					<p>The only use for this is to save the computer unnecessary square-root operation, when you don't need to know the definitive value. This is possible to utilize when comparing two distances, as you only need to know which one is longer and you don't care about the actual value.</p>
+					<ul>
+						<li><strong>NUMBER start_x</strong> - The X coordinate of the first point.</li>
+						<li><strong>NUMBER start_y</strong> - The Y coordinate of the first point.</li>
+						<li><strong>NUMBER end_x</strong> - The X coordinate of the second point.</li>
+						<li><strong>NUMBER end_y</strong> - The Y coordinate of the second point.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="getAngle">
+					<h3>getAngle(NUMBER start_x, NUMBER start_y, NUMBER point_x, NUMBER point_y)</h3>
+					<p>This function calculates the angle (in degrees) at which a point is located relative to a starting point.</p>
+					<ul>
+						<li><strong>NUMBER start_x</strong> - The X coordinate of the starting point.</li>
+						<li><strong>NUMBER start_y</strong> - The Y coordinate of the starting point.</li>
+						<li><strong>NUMBER point_x</strong> - The X coordinate of the relative point.</li>
+						<li><strong>NUMBER point_y</strong> - The Y coordinate of the relative point.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="getPointFromAngle">
+					<h3>getPointFromAngle(NUMBER start_x, NUMBER start_y, NUMBER angle, NUMBER distance)</h3>
+					<p>This function returns the coordinates of a new point in an object, that is located at a given distance from the starting point and under a certain angle.</p>
+					<ul>
+						<li><strong>NUMBER start_x</strong> - The X coordinate of the starting point.</li>
+						<li><strong>NUMBER start_y</strong> - The Y coordinate of the starting point.</li>
+						<li><strong>NUMBER angle</strong> - The angle at which the new point is located (in degrees).</li>
+						<li><strong>NUMBER distance</strong> - The distance from the starting point at which the new point is located.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="intersectLineLine">
+					<h3>intersectLineLine(NUMBER line1_start_x, NUMBER line1_start_y, NUMBER line1_end_x, NUMBER line1_end_y, NUMBER line2_start_x, NUMBER line2_start_y, NUMBER line2_end_x, NUMBER line2_end_y)</h3>
+					<p>This function finds the point of intersection of two lines and returns it in an object.</p>
+					<p>If lines don't intersect, returns false.</p>
+				</div>
+				<div class="subsection" id="intersectLineCircle">
+					<h3>intersectLineCircle(NUMBER line_start_x, NUMBER line_start_y, NUMBER line_end_x, NUMBER line_end_y, NUMBER circle_center_x, NUMBER circle_center_y, NUMBER circle_radius)</h3>
+					<p>This function finds the point of intersection of a line and a circle and returns it in an object.</p>
+					<p>If they don't intersect, returns false.</p>
+				</div>
+				<div class="subsection" id="intersectLineRect">
+					<h3>intersectLineRect(NUMBER line_start_x, NUMBER line_start_y, NUMBER line_end_x, NUMBER line_end_y, NUMBER rect_center_x, NUMBER rect_center_y, NUMBER rect_half_width, NUMBER rect_half_height)</h3>
+					<p>This function finds the point of intersection of a line and a rectangle and returns it in an object.</p>
+					<p>If they don't intersect, returns false.</p>
+				</div>
+				<div class="subsection" id="intersectCircleCircle">
+					<h3>intersectCircleCircle(NUMBER circle1_x, NUMBER circle1_y, NUMBER circle1_radius, NUMBER circle2_x, NUMBER circle2_y, NUMBER circle2_radius)</h3>
+					<p>This function checks if two circles intersect.</p>
+					<p>Returns true or false.</p>
+				</div>
+				<div class="subsection" id="intersectRectRect">
+					<h3>intersectRectRect(NUMBER rect1_center_x, NUMBER rect1_center_y, NUMBER rect1_half_width, NUMBER rect1_half_height, NUMBER rect2_center_x, NUMBER rect2_center_y, NUMBER rect2_half_width, NUMBER rect2_half_height)</h3>
+					<p>This function checks if two rectangles intersect.</p>
+					<p>Returns true or false.</p>
+				</div>
+				<div class="subsection" id="intersectRectCircle">
+					<h3>intersectRectRect(NUMBER rect_center_x, NUMBER rect_center_y, NUMBER rect_half_width, NUMBER rect_half_height, NUMBER circle_x, NUMBER circle_y, NUMBER circle_radius)</h3>
+					<p>This function checks if rectangle and circle intersect.</p>
+					<p>Returns true or false.</p>
+				</div>
+				<div class="subsection" id="pointInCircle">
+					<h3>pointInCircle(NUMBER x, NUMBER y, NUMBER circle_x, NUMBER circle_y, NUMBER circle_radius)</h3>
+					<p>This function checks if a point is located inside circle.</p>
+					<p>Returns true or false.</p>
+				</div>
+				<div class="subsection" id="pointInRect">
+					<h3>pointInRect(NUMBER x, NUMBER y, NUMBER rect_center_x, NUMBER rect_center_y, NUMBER rect_half_width, NUMBER rect_half_height)</h3>
+					<p>This function checks if a point is located inside a rectangle.</p>
+					<p>Returns true or false.</p>
+				</div>
+				<div class="subsection" id="pointInArea">
+					<h3>pointInRect(NUMBER x, NUMBER y, NUMBER rect_left_x, NUMBER rect_top_y, NUMBER rect_right_x, NUMBER rect_bottom_y)</h3>
+					<p>This function checks if a point is located inside a rectangular area.</p>
+					<p>This function is the same as the G.pointInRect() function, but the input parameters are different.</p>
+					<p>Returns true or false.</p>
+				</div>
+			</div>
+			<div class="section">
+				<h2>Custom JavaScript Utilities</h2>
+				<div class="subsection" id="javascript_utilities_info">
+					<h3>Overview</h3>
+					<p>These utilities have mostly nothing to do with the game engine stuff.</p>
+					<p>They are a set of custom functions, that make certain things easier.</p>
+					<p>These functions are accesed by just their name, as they aren't located inside any container.</p>
+				</div>
+				<div class="subsection" id="timestamp">
+					<h3>new Timestamp()</h3>
+					<p>This is a custom Timestamp object constructor.</p>
+					<p>When an instance of this constructor is created, the UNIX timestamp (time in milliseconds) is saved in it (in Timestamp.time).</p>
+					<p>It is used for one function, which is described below.</p>
+				</div>
+				<div class="subsection" id="timestamp_since">
+					<h3>TIMESTAMP.since()</h3>
+					<p>This function returns the time in seconds that passed since the timestamp was created.</p>
+				</div>
+				<div class="subsection" id="formatString">
+					<h3>formatString(ANY_VALUE value, ANY_VALUE default_return)</h3>
+					<p>This function formats the given value in two ways.</p>
+					<p>It converts any non-string value (if possible) and it strips away any spaces at the beginning and at the end of the string.</p>
+					<p>If the function isn't successful, or if the formated string comes out as an empty string, it returns the specified default return value.</p>
+					<ul>
+						<li><strong>ANY_VALUE value</strong> - The string (or any other value) to try to format.</li>
+						<li><strong>ANY_VALUE default_return</strong> - Optional value. The value that is returned, if the formating isn't successful, or if the end result is an empty string. This value is an empty string by default.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="formatNumber">
+					<h3>formatNumber(ANY_VALUE value, ANY_VALUE default_return)</h3>
+					<p>This function formats the given value into a number (if possible).</p>
+					<p>It will try to convert any string to a finite number.</p>
+					<p>If the function isn't successful, or if the formated number comes out as NaN or Infinity, it returns the specified default return value.</p>
+					<ul>
+						<li><strong>ANY_VALUE value</strong> - The number (or any other value) to try to format.</li>
+						<li><strong>ANY_VALUE default_return</strong> - Optional value. The value that is returned, if the formating isn't successful, or if the end result isn't a finite number. If this value isn't specified, false will be returned on failure.</li>
+					</ul>
+				</div>
+				<div class="subsection" id="array_numSort">
+					<h3>ARRAY.numSort()</h3>
+					<p>Sorts an array with numbers in ascending order.</p>
+					<p>Interestingly, the default JavaScript ARRAY.sort() function doesn't sort it's content based on the numeric values, but it uses alphabetical order.</p>
+				</div>
+				<div class="subsection" id="number_fixedTo">
+					<h3>NUMBER.fixedTo(INTEGER decimal_positions)</h3>
+					<p>Shortens a decimal (float) number, so it has at most the given amount of decimal positions.</p>
+					<p>The value is rounded, not truncated.</p>
+					<p>Interestingly, the default JavaScript NUMBER.toFixed() function returns a string, which is pretty annoying, so this function is beter in that regard.</p>
+				</div>
+				<div class="subsection" id="toRad">
+					<h3>Math.toRad(NUMBER degrees)</h3>
+					<p>Converts a number representing degrees into radians.</p>
+					<p>This function is added to the default JavaScript Math function set.</p>
+				</div>
+				<div class="subsection" id="toDeg">
+					<h3>Math.toDeg(NUMBER radians)</h3>
+					<p>Converts a number representing radians into degrees.</p>
+					<p>This function is added to the default JavaScript Math function set.</p>
+				</div>
+				<div class="subsection" id="randomRange">
+					<h3>Math.randomRange(INTEGER minimum, INTEGER maximum)</h3>
+					<p>Returns a random integer number, that is bigger or equal to the minimum, and always smaller than the maximum.</p>
+					<p>This function is added to the default JavaScript Math function set.</p>
+				</div>
+				<div class="subsection" id="randomRangeFloat">
+					<h3>Math.randomRangeFloat(NUMBER minimum, NUMBER maximum)</h3>
+					<p>Returns a random float number, that is bigger or equal to the minimum, and smaller or equal to the maximum.</p>
+					<p>This function is added to the default JavaScript Math function set.</p>
+				</div>
+				<div class="subsection" id="randomBool">
+					<h3>Math.randomBool()</h3>
+					<p>Returns a randomly chosen true or false.</p>
+					<p>This function is added to the default JavaScript Math function set.</p>
+				</div>
+				<div class="subsection" id="average">
+					<h3>Math.average(NUMBER value1, ..., NUMBER valueN)</h3>
+					<p>Returns the average number from all provided values. The amount of parameters is unlimited.</p>
+					<p>This function is added to the default JavaScript Math function set.</p>
+				</div>
+				<div class="subsection" id="weightedAverage">
+					<h3>Math.weightedAverage([NUMBER value1, NUMBER weight1], ..., [NUMBER valueN, NUMBER weightN])</h3>
+					<p>Returns the weighed average from all provided value-weight pairs. The amount of parameters is unlimited.</p>
+					<p>All values and their weights must be grouped in arrays.</p>
+					<p>This function is added to the default JavaScript Math function set.</p>
+				</div>
+				<div class="subsection" id="rgb">
+					<h3>rgb(NUMBER red, NUMBER green, NUMBER blue)</h3>
+					<p>This function creates a string in the canvas color format from the given RGB values and returns it.</p>
+					<p>All values range from 0 to 255.</p>
+				</div>
+				<div class="subsection" id="rgba">
+					<h3>rgba(NUMBER red, NUMBER green, NUMBER blue, NUMBER alpha)</h3>
+					<p>This function creates a string in the canvas color format from the given RGBA values and returns it.</p>
+					<p>The RGB values range from 0 to 255.</p>
+					<p>The alpha value ranges from 0 to 1, where 0 is completely transparent and 1 is completely visible.</p>
+				</div>
+			</div>
+			<div class="section">
+				<h2>Vectors</h2>
+				<div class="subsection" id="vector_info">
+					<h3>Overview</h3>
+					<p>Vectors are custom objects, that are defined using the "new Vector()" constructor.</p>
+					<p>They are heavily used by the engine to unify and simplify many operations.</p>
+					<p>These vectors have many functions defined by their prototype. This means, that every vector "contains" these functions, therefore they are called on the vector itself.</p>
+					<p>They can also be defined in multiple ways.</p>
+				</div>
+				<div class="subsection" id="vector">
+					<h3>new Vector(NUMBER start_x, NUMBER start_y, NUMBER end_x, NUMBER end_y)</h3>
+					<h3>OR</h3>
+					<h3>new Vector(NUMBER x_component, NUMBER y_component)</h3>
+					<h3>OR</h3>
+					<h3>new Vector(NUMBER angle)</h3>
+					<p>The first definition creates a vector using two points.</p>
+					<p>The second definition creates a vector only by setting it's X and Y components.</p>
+					<p>The last definition creates a unit vector using only an angle (in degrees).</p>
+					<p>Every vector is stored as an object containing only it's X and Y values.</p>
+				</div>
+				<div class="subsection" id="vector_copy">
+					<h3>VECTOR.copy()</h3>
+					<p>Creates a new vector, that is a copy of the given vector.</p>
+				</div>
+				<div class="subsection" id="vector_length">
+					<h3>VECTOR.length()</h3>
+					<p>Returns the length of the vector.</p>
+				</div>
+				<div class="subsection" id="vector_normalize">
+					<h3>VECTOR.normalize()</h3>
+					<p>Normalizes the given vector and returns it.</p>
+					<p>Normalizing a vector means setting it's length to be equal to 1, while preserving it's directiong (angle).</p>
+					<p>The resulting vector is what's called a unit vector.</p>
+				</div>
+				<div class="subsection" id="vector_reverse">
+					<h3>VECTOR.reverse()</h3>
+					<p>Reverses the given vector and returns it.</p>
+					<p>Reversing a vector is simply multiplying it's components by -1, which in practice makes it point in the exact oposite direction, while keeping it's length.</p>
+				</div>
+				<div class="subsection" id="vector_perpendicular">
+					<h3>VECTOR.perpendicular(BOOL clockwise)</h3>
+					<p>Rotates the given vector by 90 degrees and the result is returned as a new vector.</p>
+					<p>If clockwise is true, the vector will be rotated in the clockwise direction. If false, it will be rotated in the anti-clockwise direction.</p>
+					<p>This value is optional. The default is anti-clockwise.</p>
+				</div>
+				<div class="subsection" id="vector_add">
+					<h3>VECTOR.add(VECTOR vector1, ..., VECTOR vectorN)</h3>
+					<p>Adds all the specified vectors to the vector and the result is returned as a new vector.</p>
+					<p>The amount of vectors to be added together is unlimited.</p>
+				</div>
+				<div class="subsection" id="vector_subtract">
+					<h3>VECTOR.subtract(VECTOR vector1, ..., VECTOR vectorN)</h3>
+					<p>Subtracts all the specified vectors from the vector and the result is returned as a new vector.</p>
+					<p>The amount of vectors to be subtracted is unlimited.</p>
+				</div>
+				<div class="subsection" id="vector_multiply">
+					<h3>VECTOR.multiply(NUMBER scalar)</h3>
+					<h3>OR</h3>
+					<h3>VECTOR.multiply(NUMBER x_multiplier, NUMBER y_multiplier)</h3>
+					<p>If only one number is provided, both components of the vector will be multiplied by this number.</p>
+					<p>If two numbers are provided, each component of the vector is multiplied by the coresponding multiplier.</p>
+					<p>The result is then returned as a new vector.</p>
+					<p>TIP: To divide a vector instead, use the formula 1/N. For example, to divide a vector by 2, multiply it by 0.5.</p>
+				</div>
+				<div class="subsection" id="vector_average">
+					<h3>VECTOR.average(VECTOR vector1, ..., VECTOR vectorN)</h3>
+					<p>Calculates the average vector from the vector and all the other vectors, and returns it as a new vector.</p>
+					<p>The amount of vectors to be added together is unlimited.</p>
+				</div>
+				<div class="subsection" id="vector_dot">
+					<h3>VECTOR.dot(VECTOR vector)</h3>
+					<p>Calculates the DOT product of the two vectors.</p>
+					<p>The returned value is a scalar (number), not a vector.</p>
+				</div>
+				<div class="subsection" id="vector_angle">
+					<h3>VECTOR.angle()</h3>
+					<h3>OR</h3>
+					<h3>VECTOR.angle(VECTOR vector)</h3>
+					<p>If no other vector is provided, returns the angle of the vector.</p>
+					<p>If another vector is provided, returns the angle between the two vectors. This angle will always be the smaller angle (always smaller or equal to 180).</p>
+				</div>
+				<div class="subsection" id="vector_rotate">
+					<h3>VECTOR.rotate(NUMBER angle)</h3>
+					<p>Rotates the vector by the given angle and returns it as a new vector.</p>
+				</div>
+				<div class="subsection" id="vector_scalarProject">
+					<h3>VECTOR.scalarProject(VECTOR vector)</h3>
+					<p>Calculates the scalar projection of the vector onto the given vector.</p>
+					<p>The returned value is a scalar (number), not a vector.</p>
+				</div>
+				<div class="subsection" id="vector_vectorProject">
+					<h3>VECTOR.vectorProject(VECTOR vector)</h3>
+					<p>Calculates the vector projection of the vector onto the given vector.</p>
+					<p>The result is returned as a new vector.</p>
+				</div>
+				<div class="subsection" id="vector_vectorReject">
+					<h3>VECTOR.vectorReject(VECTOR vector)</h3>
+					<p>Calculates the vector rejection from the vector projection of the vector onto the given vector.</p>
+					<p>The result is returned as a new vector.</p>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		function loaded() {
+			if(window.location.hash) setTimeout(function() {document.body.scrollTop-=80;}, 0);
+			var elements = document.getElementsByTagName("a"); 
+			for(var i=0; i<elements.length; i++){
+				if(elements[i].className==="subcategory") { 
+					elements[i].onclick = function() { 
+						setTimeout(function() {
+							document.body.scrollTop-=80;
+						}, 0); 
+					}
+				} 
+			}
+		}
+		if(document.readyState==="complete" || document.readyState==="loaded") loaded();
+		else document.addEventListener("DOMContentLoaded", loaded);
+	</script>
+</html>
